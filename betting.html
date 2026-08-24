@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ILUMINANTI Betting</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fa;
+      color: #172033;
+    }
+
+    header {
+      background: #172a52;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      margin: 15px 0;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px #0002;
+    }
+
+    .balance {
+      background: #168a45;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    .balance h2 {
+      font-size: 32px;
+      margin: 8px 0;
+    }
+
+    .match {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 12px 0;
+      border-radius: 12px;
+    }
+
+    .teams {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .odds {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 13px;
+      background: #172a52;
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .odds button {
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: .85;
+    }
+
+    .green {
+      background: #168a45;
+    }
+
+    .red {
+      background: #c62828;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .selected {
+      background: #168a45 !important;
+    }
+
+    .message {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+
+    .bet {
+      background: #f3f6fa;
+      padding: 12px;
+      border-radius: 10px;
+      margin: 8px 0;
+    }
+
+    nav {
+      display: flex;
+      gap: 7px;
+      background: white;
+      padding: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    nav button {
+      flex: 1;
+      font-size: 13px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>ILUMINANTI</h1>
+  <p>⚽ Betting Demo</p>
+</header>
+
+<nav>
+  <button onclick="showPage('home')">🏠 Home</button>
+  <button onclick="showPage('matches')">⚽ Matches</button>
+  <button onclick="showPage('bets')">🎟️ My Bets</button>
+  <button onclick="showPage('account')">👤 Account</button>
+</nav>
+
+<div class="container">
+
+  <!-- HOME -->
+  <section id="home" class="page active">
+
+    <div class="balance">
+      <div>💰 Virtual Balance</div>
+      <h2 id="balance">1000.00</h2>
+      <div>DEMO CREDIT</div>
+    </div>
+
+    <div class="card">
+      <h2>🎯 Baga Nagaa</h2>
+      <p>
+        Kun website betting demo dha.
+        Maallaqa dhugaa hin fudhatu.
+      </p>
+
+      <button class="green" onclick="showPage('matches')">
+        ⚽ Matches Ilaali
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- MATCHES -->
+  <section id="matches" class="page">
+
+    <div class="card">
+
+      <h2>⚽ Matches</h2>
+
+      <div class="match">
+
+        <div class="teams">
+          Manchester United vs Chelsea
+        </div>
+
+        <div class="odds">
+
+          <button onclick="selectOdd('Manchester United',2.10,this)">
+            1<br><b>2.10</b>
+          </button>
+
+          <button onclick="selectOdd('Draw',3.30,this)">
+            X<br><b>3.30</b>
+          </button>
+
+          <button onclick="selectOdd('Chelsea',2.80,this)">
+            2<br><b>2.80</b>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="match">
+
+        <div class="teams">
+          Barcelona vs Real Madrid
+        </div>
+
+        <div class="odds">
+
+          <button onclick="selectOdd('Barcelona',2.00,this)">
+            1<br><b>2.00</b>
+          </button>
+
+          <button onclick="selectOdd('Draw',3.50,this)">
+            X<br><b>3.50</b>
+          </button>
+
+          <button onclick="selectOdd('Real Madrid',3.00,this)">
+            2<br><b>3.00</b>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="match">
+
+        <div class="teams">
+          Liverpool vs Arsenal
+        </div>
+
+        <div class="odds">
+
+          <button onclick="selectOdd('Liverpool',1.90,this)">
+            1<br><b>1.90</b>
+          </button>
+
+          <button onclick="selectOdd('Draw',3.60,this)">
+            X<br><b>3.60</b>
+          </button>
+
+          <button onclick="selectOdd('Arsenal',3.20,this)">
+            2<br><b>3.20</b>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BET SLIP -->
+  <section id="betslip" class="page">
+
+    <div class="card">
+
+      <h2>🎟️ Bet Slip</h2>
+
+      <div id="selectedBet">
+        <p>Odds filadhu.</p>
+      </div>
+
+      <input
+        id="stake"
+        type="number"
+        min="1"
+        placeholder="Stake galchi"
+        oninput="calculateWin()"
+      >
+
+      <p>
+        Possible Win:
+        <b id="possibleWin">0.00</b>
+      </p>
+
+      <button class="green" onclick="placeBet()">
+        ✅ Place Demo Bet
+      </button>
+
+      <button class="red" onclick="clearBet()">
+        ❌ Clear
+      </button>
+
+      <div id="betMessage" class="message"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MY BETS -->
+  <section id="bets" class="page">
+
+    <div class="card">
+
+      <h2>📋 My Bets</h2>
+
+      <div id="myBets">
+        <p>Bet hin jiru.</p>
+      </div>
+
+            </div>
