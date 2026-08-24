@@ -324,3 +324,360 @@
       </div>
 
             </div>
+  <!-- ACCOUNT -->
+  <section id="account" class="page">
+
+    <div class="card">
+
+      <h2>👤 Account</h2>
+
+      <input
+        id="name"
+        type="text"
+        placeholder="Maqaa kee">
+
+      <input
+        id="email"
+        type="email"
+        placeholder="Email kee">
+
+      <button class="green" onclick="saveAccount()">
+        💾 Save Account
+      </button>
+
+      <div id="accountMessage" class="message"></div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>💰 Balance</h2>
+
+      <p>
+        Balance kee:
+        <b id="accountBalance">1000.00</b>
+      </p>
+
+      <button class="green" onclick="demoDeposit()">
+        ➕ Demo Deposit 500
+      </button>
+
+      <button class="red" onclick="demoWithdraw()">
+        ➖ Demo Withdraw 100
+      </button>
+
+      <div id="moneyMessage" class="message"></div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+let balance =
+  Number(localStorage.getItem("demoBalance")) || 1000;
+
+let selectedBet = null;
+
+let myBets =
+  JSON.parse(localStorage.getItem("myBets")) || [];
+
+
+function updateBalance() {
+
+  document.getElementById("balance").textContent =
+    balance.toFixed(2);
+
+  document.getElementById("accountBalance").textContent =
+    balance.toFixed(2);
+}
+
+
+function showPage(page) {
+
+  document.querySelectorAll(".page").forEach(function(section) {
+    section.classList.remove("active");
+  });
+
+  document.getElementById(page).classList.add("active");
+
+  updateBalance();
+
+  if (page === "bets") {
+    loadMyBets();
+  }
+}
+
+
+function selectOdd(selection, odds, button) {
+
+  document.querySelectorAll(".odds button").forEach(function(btn) {
+    btn.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+
+  selectedBet = {
+    selection: selection,
+    odds: Number(odds)
+  };
+
+  document.getElementById("selectedBet").innerHTML = `
+    <div class="bet">
+      <b>Filannoo:</b> ${selection}<br>
+      <b>Odds:</b> ${odds}
+    </div>
+  `;
+
+  showPage("betslip");
+
+  calculateWin();
+}
+
+
+function calculateWin() {
+
+  const stake =
+    Number(document.getElementById("stake").value) || 0;
+
+  const win =
+    selectedBet ? stake * selectedBet.odds : 0;
+
+  document.getElementById("possibleWin").textContent =
+    win.toFixed(2);
+}
+
+
+function placeBet() {
+
+  const stake =
+    Number(document.getElementById("stake").value);
+
+  const message =
+    document.getElementById("betMessage");
+
+
+  if (!selectedBet) {
+    message.textContent =
+      "❌ Dura odds filadhu.";
+    return;
+  }
+
+
+  if (!stake || stake <= 0) {
+    message.textContent =
+      "❌ Stake sirrii galchi.";
+    return;
+  }
+
+
+  if (stake > balance) {
+    message.textContent =
+      "❌ Balance kee hin ga'u.";
+    return;
+  }
+
+
+  balance -= stake;
+
+  localStorage.setItem(
+    "demoBalance",
+    balance
+  );
+
+
+  const bet = {
+
+    selection:
+      selectedBet.selection,
+
+    odds:
+      selectedBet.odds,
+
+    stake:
+      stake,
+
+    possibleWin:
+      stake * selectedBet.odds,
+
+    date:
+      new Date().toLocaleString()
+
+  };
+
+
+  myBets.unshift(bet);
+
+  localStorage.setItem(
+    "myBets",
+    JSON.stringify(myBets)
+  );
+
+
+  message.textContent =
+    "✅ Demo bet fudhatameera!";
+
+  document.getElementById("stake").value = "";
+
+  selectedBet = null;
+
+  updateBalance();
+
+  loadMyBets();
+}
+
+
+function clearBet() {
+
+  selectedBet = null;
+
+  document.getElementById("selectedBet").innerHTML =
+    "<p>Odds filadhu.</p>";
+
+  document.getElementById("stake").value = "";
+
+  document.getElementById("possibleWin").textContent =
+    "0.00";
+}
+
+
+function loadMyBets() {
+
+  const box =
+    document.getElementById("myBets");
+
+
+  if (myBets.length === 0) {
+
+    box.innerHTML =
+      "<p>Bet hin jiru.</p>";
+
+    return;
+  }
+
+
+  box.innerHTML = "";
+
+
+  myBets.forEach(function(bet, index) {
+
+    box.innerHTML += `
+
+      <div class="bet">
+
+        <b>Bet #${index + 1}</b><br>
+
+        Filannoo:
+        ${bet.selection}<br>
+
+        Odds:
+        ${bet.odds}<br>
+
+        Stake:
+        ${Number(bet.stake).toFixed(2)}<br>
+
+        Possible Win:
+        ${Number(bet.possibleWin).toFixed(2)}<br>
+
+        <small>${bet.date}</small>
+
+      </div>
+
+    `;
+
+  });
+}
+
+
+function saveAccount() {
+
+  const name =
+    document.getElementById("name").value;
+
+  const email =
+    document.getElementById("email").value;
+
+
+  localStorage.setItem(
+    "demoName",
+    name
+  );
+
+  localStorage.setItem(
+    "demoEmail",
+    email
+  );
+
+
+  document.getElementById("accountMessage")
+    .textContent =
+    "✅ Account save ta'eera.";
+}
+
+
+function demoDeposit() {
+
+  balance += 500;
+
+  localStorage.setItem(
+    "demoBalance",
+    balance
+  );
+
+  updateBalance();
+
+  document.getElementById("moneyMessage")
+    .textContent =
+    "✅ 500 demo credit dabalameera.";
+}
+
+
+function demoWithdraw() {
+
+  if (balance < 100) {
+
+    document.getElementById("moneyMessage")
+      .textContent =
+      "❌ Balance gahaa hin qabu.";
+
+    return;
+  }
+
+
+  balance -= 100;
+
+  localStorage.setItem(
+    "demoBalance",
+    balance
+  );
+
+  updateBalance();
+
+  document.getElementById("moneyMessage")
+    .textContent =
+    "✅ 100 demo credit hir'ate.";
+}
+
+
+function loadAccount() {
+
+  document.getElementById("name").value =
+    localStorage.getItem("demoName") || "";
+
+  document.getElementById("email").value =
+    localStorage.getItem("demoEmail") || "";
+}
+
+
+updateBalance();
+loadMyBets();
+loadAccount();
+
+</script>
+
+</body>
+</html>
