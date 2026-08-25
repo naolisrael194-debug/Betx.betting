@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GADA BETTING</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#07111f;
+ color:white;
+}
+
+header{
+ background:#0d1d33;
+ text-align:center;
+ padding:20px;
+}
+
+header h1{
+ margin:0;
+ font-size:30px;
+}
+
+nav{
+ display:flex;
+ gap:6px;
+ padding:10px;
+ background:#10233b;
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+
+nav button{
+ flex:1;
+ padding:11px 4px;
+ border:0;
+ border-radius:8px;
+ background:#1769aa;
+ color:white;
+}
+
+.container{
+ max-width:700px;
+ margin:auto;
+ padding:15px;
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.card{
+ background:#10233b;
+ padding:18px;
+ margin:15px 0;
+ border-radius:15px;
+}
+
+.balance{
+ background:#168a45;
+ padding:22px;
+ text-align:center;
+ border-radius:15px;
+}
+
+.balance h2{
+ font-size:32px;
+ margin:8px;
+}
+
+.match{
+ background:#172f4c;
+ padding:15px;
+ margin:12px 0;
+ border-radius:12px;
+}
+
+.teams{
+ text-align:center;
+ font-weight:bold;
+ margin-bottom:12px;
+}
+
+.odds{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:8px;
+}
+
+button{
+ border:0;
+ border-radius:8px;
+ padding:12px;
+ background:#1769aa;
+ color:white;
+ cursor:pointer;
+ font-size:15px;
+}
+
+.green{background:#168a45}
+.red{background:#c62828}
+
+input{
+ width:100%;
+ padding:13px;
+ margin:8px 0;
+ border:0;
+ border-radius:8px;
+ font-size:16px;
+}
+
+.bet{
+ background:#173b59;
+ padding:12px;
+ border-radius:10px;
+ margin:8px 0;
+}
+
+.game-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+}
+
+.game{
+ background:#173b59;
+ padding:18px 10px;
+ text-align:center;
+ border-radius:12px;
+}
+
+.icon{
+ font-size:38px;
+}
+
+.notice{
+ text-align:center;
+ font-size:13px;
+ color:#aebdce;
+}
+
+.message{
+ text-align:center;
+ margin-top:12px;
+ font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🎯 GADA BETTING</h1>
+<p>⚽ Sports & 🎰 Casino Demo</p>
+</header>
+
+<nav>
+<button onclick="showPage('home')">🏠 Home</button>
+<button onclick="showPage('matches')">⚽ Matches</button>
+<button onclick="showPage('casino')">🎰 Casino</button>
+<button onclick="showPage('bets')">🎟️ Bets</button>
+<button onclick="showPage('account')">👤 Account</button>
+</nav>
+
+<div class="container">
+
+<section id="home" class="page active">
+
+<div class="balance">
+<div>💰 Virtual Balance</div>
+<h2 id="balance">1000.00</h2>
+<div>DEMO CREDIT</div>
+</div>
+
+<div class="card">
+<h2>🎯 Baga Nagaan Dhuftan</h2>
+
+<p>
+GADA BETTING demo website.
+Maallaqa dhugaa hin qabu.
+</p>
+
+<button class="green"
+onclick="showPage('matches')">
+⚽ Matches Ilaali
+</button>
+</div>
+
+</section>
+
+
+<section id="matches" class="page">
+
+<div class="card">
+
+<h2>⚽ Matches</h2>
+
+<div class="match">
+
+<div class="teams">
+Manchester United vs Chelsea
+</div>
+
+<div class="odds">
+
+<button onclick="selectOdd('Manchester United',2.10)">
+1<br><b>2.10</b>
+</button>
+
+<button onclick="selectOdd('Draw',3.30)">
+X<br><b>3.30</b>
+</button>
+
+<button onclick="selectOdd('Chelsea',2.80)">
+2<br><b>2.80</b>
+</button>
+
+</div>
+</div>
+
+
+<div class="match">
+
+<div class="teams">
+Barcelona vs Real Madrid
+</div>
+
+<div class="odds">
+
+<button onclick="selectOdd('Barcelona',2.00)">
+1<br><b>2.00</b>
+</button>
+
+<button onclick="selectOdd('Draw',3.50)">
+X<br><b>3.50</b>
+</button>
+
+<button onclick="selectOdd('Real Madrid',3.00)">
+2<br><b>3.00</b>
+</button>
+
+</div>
+</div>
+
+
+<div class="match">
+
+<div class="teams">
+Liverpool vs Arsenal
+</div>
+
+<div class="odds">
+
+<button onclick="selectOdd('Liverpool',1.90)">
+1<br><b>1.90</b>
+</button>
+
+<button onclick="selectOdd('Draw',3.60)">
+X<br><b>3.60</b>
+</button>
+
+<button onclick="selectOdd('Arsenal',3.20)">
+2<br><b>3.20</b>
+</button>
+
+</div>
+</div>
+
+</div>
+</section>
+
+
+<section id="casino" class="page">
+
+<div class="card">
+
+<h2>🎰 Casino Demo</h2>
+
+<div class="game-grid">
+
+<div class="game">
+<div class="icon">🎰</div>
+<h3>Lucky Slots</h3>
+<button onclick="playGame('Lucky Slots')">
+PLAY
+</button>
+</div>
+
+<div class="game">
+<div class="icon">🎡</div>
+<h3>Lucky Wheel</h3>
+<button onclick="playGame('Lucky Wheel')">
+PLAY
+</button>
+</div>
+
+<div class="game">
+<div class="icon">🎲</div>
+<h3>Dice</h3>
+<button onclick="playGame('Dice')">
+PLAY
+</button>
+</div>
+
+<div class="game">
+<div class="icon">🃏</div>
+<h3>Blackjack</h3>
+<button onclick="playGame('Blackjack')">
+PLAY
+</button>
+</div>
+
+<div class="game">
+<div class="icon">🎯</div>
+<h3>Lucky Number</h3>
+<button onclick="playGame('Lucky Number')">
+PLAY
+</button>
+</div>
+
+<div class="game">
+<div class="icon">🪙</div>
+<h3>Coin Flip</h3>
+<button onclick="playGame('Coin Flip')">
+PLAY
+</button>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section id="betslip" class="page">
+
+<div class="card">
+
+<h2>🎟️ Bet Slip</h2>
+
+<div id="selectedBet">
+<p>Odds filadhu.</p>
+</div>
+
+<input
+id="stake"
+type="number"
+min="1"
+placeholder="Stake galchi"
+oninput="calculateWin()"
+>
+
+<p>
+Possible Win:
+<b id="possibleWin">0.00</b>
+</p>
+
+<button class="green"
+onclick="placeBet()">
+✅ Place Demo Bet
+</button>
+
+<button class="red"
+onclick="clearBet()">
+❌ Clear
+</button>
+
+<div id="betMessage"
+class="message">
+</div>
+
+</div>
+</section>
+
+
+<section id="bets" class="page">
+
+<div class="card">
+
+<h2>📋 My Bets</h2>
+
+<div id="myBets">
+<p>Bet hin jiru.</p>
+</div>
+
+</div>
+</section>
+
+
+<section id="account" class="page">
+
+<div class="card">
+
+<h2>👤 Account</h2>
+
+<input id="name"
+placeholder="Maqaa kee">
+
+<input id="email"
+type="email"
+placeholder="Email kee">
+
+<button class="green"
+onclick="saveAccount()">
+💾 Save Account
+</button>
+
+<div id="accountMessage"
+class="message">
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>💰 Demo Balance</h2>
+
+<p>
+Balance:
+<b id="accountBalance">1000.00</b>
+</p>
+
+<button class="green"
+onclick="demoDeposit()">
+➕ Demo Deposit 500
+</button>
+
+<button class="red"
+onclick="demoWithdraw()">
+➖ Demo Withdraw 100
+</button>
+
+<div id="moneyMessage"
+class="message">
+</div>
+
+</div>
+
+</section>
+
+<p class="notice">
+⚠️ Demo/play-money qofa. Maallaqa dhugaa hin qabu.
+</p>
+
+</div>
+
+
+<script>
+
+let balance =
+Number(localStorage.getItem("gadaBalance")) || 1000;
+
+let selectedBet=null;
+
+let myBets=
+JSON.parse(localStorage.getItem("gadaBets")) || [];
+
+
+function updateBalance(){
+
+document.getElementById("balance")
+.textContent=balance.toFixed(2);
+
+document.getElementById("accountBalance")
+.textContent=balance.toFixed(2);
+
+}
+
+
+function showPage(page){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(page)
+.classList.add("active");
+
+updateBalance();
+
+if(page==="bets") loadMyBets();
+
+}
+
+
+function selectOdd(selection,odds){
+
+selectedBet={
+selection:selection,
+odds:Number(odds)
+};
+
+document.getElementById("selectedBet")
+.innerHTML=`
+
+<div class="bet">
+<b>Filannoo:</b> ${selection}<br>
+<b>Odds:</b> ${odds}
+</div>
+
+`;
+
+showPage("betslip");
+
+calculateWin();
+
+}
+
+
+function calculateWin(){
+
+let stake=
+Number(document.getElementById("stake").value)||0;
+
+let win=
+selectedBet ? stake*selectedBet.odds : 0;
+
+document.getElementById("possibleWin")
+.textContent=win.toFixed(2);
+
+}
+
+
+function placeBet(){
+
+let stake=
+Number(document.getElementById("stake").value);
+
+let msg=
+document.getElementById("betMessage");
+
+
+if(!selectedBet){
+msg.textContent="❌ Dura odds filadhu.";
+return;
+}
+
+if(!stake || stake<=0){
+msg.textContent="❌ Stake sirrii galchi.";
+return;
+}
+
+if(stake>balance){
+msg.textContent="❌ Balance kee hin ga'u.";
+return;
+}
+
+balance-=stake;
+
+localStorage.setItem(
+"gadaBalance",balance
+);
+
+let bet={
+selection:selectedBet.selection,
+odds:selectedBet.odds,
+stake:stake,
+possibleWin:stake*selectedBet.odds,
+date:new Date().toLocaleString()
+};
+
+myBets.unshift(bet);
+
+localStorage.setItem(
+"gadaBets",
+JSON.stringify(myBets)
+);
+
+msg.textContent=
+"✅ Demo bet fudhatameera!";
+
+document.getElementById("stake").value="";
+
+selectedBet=null;
+
+updateBalance();
+
+loadMyBets();
+
+}
+
+
+function clearBet(){
+
+selectedBet=null;
+
+document.getElementById("selectedBet")
+.innerHTML="<p>Odds filadhu.</p>";
+
+document.getElementById("stake").value="";
+
+document.getElementById("possibleWin")
+.textContent="0.00";
+
+}
+
+
+function loadMyBets(){
+
+let box=
+document.getElementById("myBets");
+
+if(myBets.length===0){
+box.innerHTML="<p>Bet hin jiru.</p>";
+return;
+}
+
+box.innerHTML="";
+
+myBets.forEach((bet,index)=>{
+
+box.innerHTML+=`
+
+<div class="bet">
+
+<b>Bet #${index+1}</b><br>
+
+Filannoo: ${bet.selection}<br>
+
+Odds: ${bet.odds}<br>
+
+Stake: ${Number(bet.stake).toFixed(2)}<br>
+
+Possible Win:
+${Number(bet.possibleWin).toFixed(2)}<br>
+
+<small>${bet.date}</small>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function saveAccount(){
+
+localStorage.setItem(
+"gadaName",
+document.getElementById("name").value
+);
+
+localStorage.setItem(
+"gadaEmail",
+document.getElementById("email").value
+);
+
+document.getElementById("accountMessage")
+.textContent=
+"✅ Account save ta'eera.";
+
+}
+
+
+function demoDeposit(){
+
+balance+=500;
+
+localStorage.setItem(
+"gadaBalance",balance
+);
+
+updateBalance();
+
+document.getElementById("moneyMessage")
+.textContent=
+"✅ 500 demo credit dabalameera.";
+
+}
+
+
+function demoWithdraw(){
+
+if(balance<100){
+
+document.getElementById("moneyMessage")
+.textContent=
+"❌ Balance gahaa hin qabu.";
+
+return;
+}
+
+balance-=100;
+
+localStorage.setItem(
+"gadaBalance",balance
+);
+
+updateBalance();
+
+document.getElementById("moneyMessage")
+.textContent=
+"✅ 100 demo credit hir'ate.";
+
+}
+
+
+function playGame(game){
+
+alert(
+"🎮 "+game+
+"\n\nDemo game qofa.\nMaallaqa dhugaa hin qabu."
+);
+
+}
+
+
+updateBalance();
+loadMy
